@@ -77,3 +77,14 @@ def test_dictionary():
     assert dictionary_for_string_keys['sape'] == 4139
     assert dictionary_for_string_keys['guido'] == 4127
     assert dictionary_for_string_keys['jack'] == 4098
+
+    # You can iterate over the keys of a dictionary:
+    assert [key for key in dictionary_for_string_keys.keys()] == ['sape', 'guido', 'jack']
+
+    # You can also iterate over thevalues of a dictionary:
+    assert [value for value in dictionary_for_string_keys.values()] == [4139, 4127, 4098]
+
+    # And you can iterate over its key-value pairs:
+    assert [kv for kv in dictionary_for_string_keys.items()] == [('sape', 4139), ('guido', 4127), ('jack', 4098)]
+    assert [k for (k, v) in dictionary_for_string_keys.items()] == ['sape', 'guido', 'jack']
+    assert [v for (k, v) in dictionary_for_string_keys.items()] == [4139, 4127, 4098]

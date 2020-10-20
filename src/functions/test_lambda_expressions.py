@@ -8,14 +8,19 @@ Semantically, they are just syntactic sugar for a normal function definition. Li
 definitions, lambda functions can reference variables from the containing scope.
 """
 
-
 def test_lambda_expressions():
     """Lambda Expressions"""
+
+    # You can assign an anonymous (lambda) function to a variable and use it like a usual function
+    square = lambda x: x * x
+
+    assert square(2) == 4
+    assert square(3) == 9
+    assert square(4) == 16
 
     # This function returns the sum of its two arguments: lambda a, b: a+b
     # Like nested function definitions, lambda functions can reference variables from the
     # containing scope.
-
     def make_increment_function(delta):
         """This example uses a lambda expression to return a function"""
         return lambda number: number + delta

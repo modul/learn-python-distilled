@@ -1,19 +1,71 @@
-"""Strings.
-
-@see: https://docs.python.org/3/tutorial/introduction.html
-@see: https://www.w3schools.com/python/python_strings.asp
-@see: https://www.w3schools.com/python/python_ref_string.asp
-
-Besides numbers, Python can also manipulate strings, which can be
-expressed in several ways. They can be enclosed in single quotes ('...')
-or double quotes ("...") with the same result.
-"""
-
 import pytest
 
+def test_numbers():
+    """Numbers.
+
+    @see: https://docs.python.org/3/tutorial/introduction.html
+    @see: https://www.w3schools.com/python/python_numbers.asp
+
+    There are three numeric types in Python:
+    - int (e.g. 2, 4, 20)
+        - bool (e.g. False and True, acting like 0 and 1)
+    - float (e.g. 5.0, 1.6)
+    - complex (e.g. 5+6j, 4-3j)
+    """
+
+    positive_integer = 1
+    negative_integer = -3255522
+    big_integer = 35656222554887711
+
+    assert isinstance(positive_integer, int)
+    assert isinstance(negative_integer, int)
+    assert isinstance(big_integer, int)
+
+
+    # Booleans
+    true_boolean = True
+    false_boolean = False
+
+    assert true_boolean
+    assert not false_boolean
+
+    assert isinstance(true_boolean, bool)
+    assert isinstance(false_boolean, bool)
+
+    # Let's try to cast boolean to string.
+    assert str(true_boolean) == "True"
+    assert str(false_boolean) == "False"
+
+    # Floating point numbers
+    float_number = 7.0
+    float_negative = -35.59
+    float_number_via_function = float(7)
+
+    assert isinstance(float_number, float)
+    assert isinstance(float_number_via_function, float)
+    assert isinstance(float_negative, float)
+    assert float_number == float_number_via_function
+
+    # In exponential notation
+    float_with_small_e = 35e3
+    float_with_big_e = 12E4
+
+    assert float_with_small_e == 35000
+    assert float_with_big_e == 120000
+    assert isinstance(12E4, float)
+    assert isinstance(-87.7e100, float)
 
 def test_string_type():
-    """String type"""
+    """Strings.
+
+    @see: https://docs.python.org/3/tutorial/introduction.html
+    @see: https://www.w3schools.com/python/python_strings.asp
+    @see: https://www.w3schools.com/python/python_ref_string.asp
+
+    Besides numbers, Python can also manipulate strings, which can be
+    expressed in several ways. They can be enclosed in single quotes ('...')
+    or double quotes ("...") with the same result.
+    """
 
     # String with double quotes.
     name_1 = "John"
@@ -68,17 +120,6 @@ def test_string_type():
     assert word[4:] == 'on'  # Characters from position 4 (included) to the end.
     assert word[-2:] == 'on'  # Characters from the second-last (included) to the end.
 
-    # One way to remember how slices work is to think of the indices as
-    # pointing between characters, with the left edge of the first character
-    # numbered 0. Then the right edge of the last character of a string of n
-    # characters has index n, for example:
-    #
-    # +---+---+---+---+---+---+
-    #  | P | y | t | h | o | n |
-    #  +---+---+---+---+---+---+
-    #  0   1   2   3   4   5   6
-    # -6  -5  -4  -3  -2  -1
-
     # Attempting to use an index that is too large will result in an error.
     with pytest.raises(Exception):
         not_existing_character = word[42]
@@ -116,7 +157,6 @@ def test_string_type():
         First line
         Second line
     '''
-
 
 def test_string_operators():
     """Basic operations
@@ -198,7 +238,6 @@ def test_string_methods():
     assert '1234'.isdecimal()
     assert not 'a21453'.isdecimal()
 
-
 def test_string_formatting():
     """String formatting.
 
@@ -222,89 +261,3 @@ def test_string_formatting():
     percentage = yes_votes / (yes_votes + no_votes)
 
     assert '{:-9} YES votes  {:2.2%}'.format(yes_votes, percentage) == ' 42572654 YES votes  49.67%'
-
-    # When you don’t need fancy output but just want a quick display of some variables for debugging
-    # purposes, you can convert any value to a string with the repr() or str() functions. The str()
-    # function is meant to return representations of values which are fairly human-readable, while
-    # repr() is meant to generate representations which can be read by the interpreter (or will
-    # force a SyntaxError if there is no equivalent syntax). For objects which don’t have a
-    # particular representation for human consumption, str() will return the same value as repr().
-    # Many values, such as numbers or structures like lists and dictionaries, have the same
-    # representation using either function. Strings, in particular, have two distinct
-    # representations.
-
-    greeting = 'Hello, world.'
-    first_num = 10 * 3.25
-    second_num = 200 * 200
-
-    assert str(greeting) == 'Hello, world.'
-    assert repr(greeting) == "'Hello, world.'"
-    assert str(1/7) == '0.14285714285714285'
-
-    # The argument to repr() may be any Python object:
-    assert repr((first_num, second_num, ('spam', 'eggs'))) == "(32.5, 40000, ('spam', 'eggs'))"
-
-    # Formatted String Literals
-
-    # Formatted string literals (also called f-strings for short) let you include the value of
-    # Python expressions inside a string by prefixing the string with f or F and writing
-    # expressions as {expression}.
-
-    # An optional format specifier can follow the expression. This allows greater control over how
-    # the value is formatted. The following example rounds pi to three places after the decimal.
-    pi_value = 3.14159
-    assert f'The value of pi is {pi_value:.3f}.' == 'The value of pi is 3.142.'
-
-    # Passing an integer after the ':' will cause that field to be a minimum number of characters
-    # wide. This is useful for making columns line up:
-    table_data = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 7678}
-    table_string = ''
-    for name, phone in table_data.items():
-        table_string += f'{name:7}==>{phone:7d}'
-
-    assert table_string == ('Sjoerd ==>   4127'
-                            'Jack   ==>   4098'
-                            'Dcab   ==>   7678')
-
-    # The String format() Method
-
-    # Basic usage of the str.format() method looks like this:
-    assert 'We are {} who say "{}!"'.format('knights', 'Ni') == 'We are knights who say "Ni!"'
-
-    # The brackets and characters within them (called format fields) are replaced with the objects
-    # passed into the str.format() method. A number in the brackets can be used to refer to the
-    # position of the object passed into the str.format() method
-    assert '{0} and {1}'.format('spam', 'eggs') == 'spam and eggs'
-    assert '{1} and {0}'.format('spam', 'eggs') == 'eggs and spam'
-
-    # If keyword arguments are used in the str.format() method, their values are referred to by
-    # using the name of the argument.
-    formatted_string = 'This {food} is {adjective}.'.format(
-        food='spam',
-        adjective='absolutely horrible'
-    )
-
-    assert formatted_string == 'This spam is absolutely horrible.'
-
-    # Positional and keyword arguments can be arbitrarily combined
-    formatted_string = 'The story of {0}, {1}, and {other}.'.format(
-        'Bill',
-        'Manfred',
-        other='Georg'
-    )
-
-    assert formatted_string == 'The story of Bill, Manfred, and Georg.'
-
-    # If you have a really long format string that you don’t want to split up, it would be nice if
-    # you could reference the variables to be formatted by name instead of by position. This can be
-    # done by simply passing the dict and using square brackets '[]' to access the keys
-
-    table = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 8637678}
-    formatted_string = 'Jack: {0[Jack]:d}; Sjoerd: {0[Sjoerd]:d}; Dcab: {0[Dcab]:d}'.format(table)
-
-    assert formatted_string == 'Jack: 4098; Sjoerd: 4127; Dcab: 8637678'
-
-    # This could also be done by passing the table as keyword arguments with the ‘**’ notation.
-    formatted_string = 'Jack: {Jack:d}; Sjoerd: {Sjoerd:d}; Dcab: {Dcab:d}'.format(**table)
-
-    assert formatted_string == 'Jack: 4098; Sjoerd: 4127; Dcab: 8637678'

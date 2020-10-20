@@ -169,35 +169,6 @@ def test_list_methods():
     fruits.clear()
     assert fruits == []
 
-
-def test_del_statement():
-    """The del statement
-
-    There is a way to remove an item from a list given its index instead of its value: the del
-    statement. This differs from the pop() method which returns a value. The del statement can also
-    be used to remove slices from a list or clear the entire list (which we did earlier by
-    assignment of an empty list to the slice).
-    """
-
-    numbers = [-1, 1, 66.25, 333, 333, 1234.5]
-
-    del numbers[0]
-    assert numbers == [1, 66.25, 333, 333, 1234.5]
-
-    del numbers[2:4]
-    assert numbers == [1, 66.25, 1234.5]
-
-    del numbers[:]
-    assert numbers == []
-
-    # del can also be used to delete entire variables:
-    del numbers
-    with pytest.raises(Exception):
-        # Referencing the name a hereafter is an error (at least until another
-        # value is assigned to it).
-        assert numbers == []  # noqa: F821
-
-
 def test_list_comprehensions():
     """List Comprehensions.
 

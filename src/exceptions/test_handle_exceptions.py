@@ -9,7 +9,6 @@ unconditionally fatal.
 It is possible to write programs that handle selected exceptions.
 """
 
-
 def test_handle_exceptions():
     """Handling of exceptions
 
@@ -27,6 +26,13 @@ def test_handle_exceptions():
     - If an exception occurs which does not match the exception named in the except clause, it is
     passed on to outer try statements; if no handler is found, it is an unhandled exception and
     execution stops with a message.
+
+    In short:
+
+    The "try" block lets you test a block of code for errors.
+    The "except" block lets you handle the error.
+    The "else" block lets you execute the code if no errors were raised.
+    The "finally" block lets you execute code, regardless of the result of the try- and except blocks.
     """
 
     # Let's simulate division by zero exception.
@@ -104,3 +110,37 @@ def test_handle_exceptions():
 
     assert not exception_has_been_handled
     assert no_exceptions_has_been_fired
+
+    # The finally block, if specified, will be executed regardless if the try block raises an
+    # error or not.
+
+    message = ''
+    try:
+        # pylint: undefined-variable
+        print(not_existing_variable)  # noqa: F821
+    except NameError:
+        message += 'Something went wrong.'
+    finally:
+        message += 'The "try except" is finished.'
+
+    assert message == 'Something went wrong.The "try except" is finished.'
+
+def test_raise_exception():
+    """Raising Exceptions.
+
+    @see: https://docs.python.org/3/tutorial/errors.html#raising-exceptions
+
+    The raise statement allows the programmer to force a specified exception to occur.
+    """
+    exception_is_caught = False
+
+    try:
+        # The sole argument to raise indicates the exception to be raised. This must be either an
+        # exception instance or an exception class (a class that derives from Exception). If an
+        # exception class is passed, it will be implicitly instantiated by calling its constructor
+        # with no arguments
+        raise NameError('HiThere')
+    except NameError:
+        exception_is_caught = True
+
+    assert exception_is_caught
